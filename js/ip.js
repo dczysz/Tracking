@@ -46,8 +46,9 @@ function buildMap(mapDiv, coords) {
 
   var mymap = L.map(mapDiv, {
     center: coordsDouble,
-    zoom: 12,
-    scrollWheelZoom: false
+    zoom: 13,
+    scrollWheelZoom: false,
+    dragging: false
   });
 
   var circle = L.circle(coordsDouble, {
