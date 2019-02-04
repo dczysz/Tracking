@@ -4,6 +4,7 @@ $(document).ready(function() {
 
     var ipData = {
       ip: data.ip,
+      provider: getProvider(data.org),
       city: data.city,
       state: data.region,
       zip: data.postal,
@@ -21,6 +22,16 @@ $(document).ready(function() {
     }
   });
 });
+
+function getProvider(uglyProvider) {
+
+  var wordArray = uglyProvider.split(' ');
+  var prettyProvider = '';
+  for (var i = 1; i < wordArray.length; i++) {
+    prettyProvider += wordArray[i] + ' ';
+  }
+  return prettyProvider;
+}
 
 // Creates OpenStreetMap map view
 function buildMap(mapDiv, coords) {
