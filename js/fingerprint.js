@@ -8,16 +8,16 @@ $(document).ready(function() {
     product: navigator.product,
     platform: navigator.appVersion,
     userAgent: navigator.userAgent,
-    canvasOn: isCanvasSupported(),
+    canvas: onOff(isCanvasSupported()),
     colorDepth: screen.colorDepth,
-    cookiesOn: navigator.cookieEnabled,
-    persistentCooks: hasLocalStorage(),
-    sessionCooks: hasSessionStorage(),
+    cookies: onOff(navigator.cookieEnabled),
+    persistentCooks: onOff(hasLocalStorage()),
+    sessionCooks: onOff(hasSessionStorage()),
     cpu: cleanArray([navigator.cpuClass, navigator.oscpu]),
     cpuCores: navigator.hardwareConcurrency,
     timezone: getTimeZone(),
-    doNotTrack: (navigator.doNotTrack == 1)? 'On' : 'Off',
-    isOnline: navigator.onLine,
+    doNotTrack: onOff(navigator.doNotTrack),
+    isOnline: (navigator.onLine)? 'Yes' : 'No',
     connectionType: getConnectionType(),
     language: navigator.language,
     platform: navigator.platform,
@@ -44,6 +44,10 @@ $(document).ready(function() {
       if (value != null) cleanArray += value;
     }
     return cleanArray;
+  }
+
+  function onOff(boolean) {
+    return (boolean)? 'On' : 'Off';
   }
 
 

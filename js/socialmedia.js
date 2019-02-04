@@ -1,3 +1,4 @@
+/* https://github.com/RobinLinus/socialmedia-leak */
 var platforms = [
     {
         domain: "https://500px.com",

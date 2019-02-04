@@ -14,7 +14,8 @@
     <div class="container">
       <header class="m-5">
         <h1>Your Browser Fingerprint</h1>
-        <h5 class="mb-4">This is <i>some</i> of the info that any website you visit can see about you</h5>
+        <h5>This is <i>some</i> of the info that any website you visit can see about you</h5>
+        <h6 class="mb-4"><em>None of this info is getting saved</em></h6>
         <h5><a href="http://webkay.robinlinus.com/">
           See even more info on a better site</a></h5>
           <h5><a href="https://amiunique.org/">
@@ -51,9 +52,9 @@
 
         <p><a href="https://robinlinus.github.io/socialmedia-leak/">
           How does this work?</a></p>
-        <p><a id="socialList" href="#" data-toggle="popover" data-trigger="focus" data-html="true">
-          What sites am I checking?</a></p>
-        </p>
+        <button id="socialList" class="btn btn-sm" data-toggle="popover" data-trigger="focus" data-html="true">
+          What sites can I check?</button>
+
       </section>
 
       <footer>
@@ -66,7 +67,6 @@
     <script src="lib/js/jquery.min.js"></script>
     <script src="lib/js/popper.min.js"></script>
     <script src="lib/js/bootstrap.min.js"></script>
-
 
     <script src="js/fingerprint.js"></script>
     <script src="js/ip.js"></script>
