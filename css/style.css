@@ -19,8 +19,8 @@ footer {
   padding-bottom: 10px;
 }
 
-@media (max-width: 64em) {
-  td {
+@media (max-width: 768px) {
+  tr, td {
     font-size: 0.8em;
   }
 }

@@ -22,7 +22,7 @@ $(document).ready(function() {
       connectionType: getConnectionType(),
       language: navigator.language.toUpperCase(),
       plugins: getPlugins(),
-      previousUrl: shortenUrl(document.referrer),
+      previousUrl: (shortenUrl(document.referrer) == '')? 'Only woks if you got to this page by clicking a link' : '',
       screenRes: window.innerWidth + " x " + window.innerHeight + ', ' + screen.colorDepth + '-bit',
       screenResMax: screen.width + " x " + screen.height,
       lyingAboutRes: (hasLiedResolution())? 'Yes' : '',
@@ -30,8 +30,9 @@ $(document).ready(function() {
       java: onOff(navigator.javaEnabled()),
       flash: onOff(isFlashEnabled()),
       mimeTypes: getMimeTypes(),
-      lastVisit: lastVisit()
+      lastVisitCookie: lastVisit()
     };
+    console.log(shortenUrl('https://dczysz.github.io/Tracking/'));
     console.log('-- Browser Fingerprint Info --');
     buildTable(document.getElementById('fingerprint'), fingerprint);
 
@@ -48,9 +49,9 @@ $(document).ready(function() {
     return cleanArray;
   }
 
-  // Remove https
+  // Remove 'http[s]://' and trailing '/'
   function shortenUrl(url) {
-    return url.replace(/^(http|https):\/\//, '');
+    return url.replace(/^(http|https):\/\//, '').replace(/\/$/, '');
   }
 
   function onOff(boolean) {

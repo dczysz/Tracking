@@ -14,12 +14,12 @@ $(document).ready(function() {
     };
 
     if (!!ipData) {
+      showSection(document.getElementById('ipSection'));
+
       buildMap(document.getElementById('map'), ipData.location);
 
       console.log('\n-- IP Address Info --');
       buildTable(document.getElementById('ip'), ipData);
-
-      showSection(document.getElementById('ipSection'));
     }
   });
 });
@@ -55,11 +55,16 @@ function buildMap(mapDiv, coords) {
   var circle = L.circle(coordsDouble, {
     fillOpacity: 0.5,
     radius: 1000
-}).addTo(mymap);
+  }).addTo(mymap);
 
   L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
     id: 'mapbox.streets',
     accessToken: 'pk.eyJ1IjoiY3p5c3oiLCJhIjoiY2pybnYyeW9lMGF0cDQ0azUzaTExbGMwNyJ9.rcB3JmerYE5vyRojnfvgKg',
   }).addTo(mymap);
+
+  // Make sure map tiles are loaded
+  setTimeout(function() {
+    myMap.invalidateSize();
+  }, 250);
 }
