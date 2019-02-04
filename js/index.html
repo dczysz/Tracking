@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="A simple demonstration of browser fingerprint and social media tracking">
+    <title>Browser Tracking</title>
+    <link rel="icon" href="icons/icon.ico">
+    <link rel="stylesheet" href="lib/css/leaflet.css">
+    <link rel="stylesheet" href="lib/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body id="body" class="bg-dark text-light">
+    <div class="container">
+      <header class="m-5">
+        <h1 class="mb-4">Your Browser Fingerprint</h1>
+        <h5><a href="http://webkay.robinlinus.com/">
+          See even more info on a better site</a></h5>
+          <h5><a href="https://amiunique.org/">
+          Understand what this all actually means here</a></h5>
+      </header>
+
+      <section id="fingerprintSection">
+        <h2>Info From Your Browser</h2>
+        <table id="fingerprint" border="1" class="table"></table>
+        <p>If canvas is enabled above, you're also susceptible to <a href="https://browserleaks.com/canvas#how-does-it-work">
+          canvas fingerprinting</a>, which enables a site to uniquely identify your machine even without cookies enabled by
+          using your machine to render an image and create a number from that image to save on their server and compare next time you return
+        </p>
+      </section>
+
+      <section id="ipSection">
+        <h2>IP Address Details</h2>
+        <div id="map" class="mb-4"></div>
+        <table id="ip" border="1" class="table"></table>
+      </section>
+
+      <section id="socialSection">
+        <h2>Sites You're Logged Into</h2>
+
+        <div id="socialRow" class="row justify-content-center"></div>
+
+        <p><i>Logged in</i> meaning, if you go to the site and you're already logged in<br>
+        Click the link for any sites whose icons loaded and you'll see you're already logged in</p>
+        <p>If no sites are shown above, that's good and means your browser isn't saving cookies or is blocking the tracking attempts</p>
+
+        <p><a href="https://robinlinus.github.io/socialmedia-leak/">
+          See how this works</a><br>
+          <a id="socialList" href="#" data-toggle="popover" data-trigger="focus" data-html="true">
+            What sites does this work with?</a>
+        </p>
+      </section>
+
+      <footer>
+        Copyright &copy; <span id="year">2019</span> D. Czysz
+      </footer>
+
+
+    </div><!-- end container -->
+    <script src="lib/js/leaflet.js"></script>
+    <script src="lib/js/jquery.min.js"></script>
+    <script src="lib/js/popper.min.js"></script>
+    <script src="lib/js/bootstrap.min.js"></script>
+
+
+    <script src="js/fingerprint.js"></script>
+    <script src="js/ip.js"></script>
+    <script src="js/socialmedia.js"></script>
+
+    <script>
+
+      $(document).ready(function() {
+        $('#year').text((new Date).getFullYear());
+
+        // Popover
+        // Populate popover with list of social sites getting checked
+        document.getElementById('socialList').setAttribute('data-content', getSocialList());
+        // Prevent scroll to top on click
+        $('[data-toggle="popover"]')
+          .popover({
+            placement: 'top'
+          })
+          .click(function(e) {
+            e.preventDefault();
+        });
+
+        // Batch add attributes to elements
+        setAttributes(document.getElementsByTagName('section'),
+                      ['class'],
+                      ['mb-5 p-4 shadow rounded bg-light text-dark']);
+        setAttributes(document.getElementsByTagName('h2'),
+                      ['class'],
+                      ['mb-4']);
+        setAttributes(document.getElementsByTagName('a'),
+                      ['rel',        'target'],
+                      ['noreferrer', '_blank']);
+      }); // End Document Ready
+
+      // Set attribute of array of elements
+      function setAttributes(elementArray, attributeArray, valueArray) {
+        for (var elem of elementArray) {
+          for (var i = 0; i < attributeArray.length; i++) {
+            elem.setAttribute(attributeArray[i], valueArray[i]);
+          }
+
+        }
+      }
+
+      // Add content to table
+      function buildTable(table, obj) {
+        var row, value;
+
+        // make 2 cols of (key, value), only populate if has value
+        for (var key in obj) {
+          if (obj[key] != '' && obj[key] != ',') {
+            row = table.insertRow(-1);
+            keyCell = row.insertCell(0);
+            valCell = row.insertCell(1);
+            keyCell.innerHTML = key;
+            valCell.innerHTML = obj[key];
+          }
+        }
+      }
+
+      // Show section if it successfully loads
+      function showSection(section) {
+        section.style.display = 'block';
+      }
+    </script>
+  </body>
+</html>
