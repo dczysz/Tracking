@@ -165,7 +165,7 @@ $(document).ready(function() {
 // Adds column to row of sites logged in
 function addCol(index, img) {
   var col = document.createElement('a');
-  col.setAttribute('class', 'col-4 col-md-2 text-center');
+  col.setAttribute('class', 'col-4 col-md-3 text-center');
   col.setAttribute('href', platforms[index].domain);
   col.setAttribute('target', '_blank');
   col.appendChild(img);

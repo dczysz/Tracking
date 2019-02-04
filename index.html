@@ -13,7 +13,8 @@
   <body id="body" class="bg-dark text-light">
     <div class="container">
       <header class="m-5">
-        <h1 class="mb-4">Your Browser Fingerprint</h1>
+        <h1>Your Browser Fingerprint</h1>
+        <h5 class="mb-4">This is <i>some</i> of the info that any website you visit can see about you</h5>
         <h5><a href="http://webkay.robinlinus.com/">
           See even more info on a better site</a></h5>
           <h5><a href="https://amiunique.org/">
@@ -21,17 +22,21 @@
       </header>
 
       <section id="fingerprintSection">
-        <h2>Info From Your Browser</h2>
+        <h2>Info Directly From Your Browser</h2>
         <table id="fingerprint" border="1" class="table"></table>
         <p>If canvas is enabled above, you're also susceptible to <a href="https://browserleaks.com/canvas#how-does-it-work">
           canvas fingerprinting</a>, which enables a site to uniquely identify your machine even without cookies enabled by
-          using your machine to render an image and create a number from that image to save on their server and compare next time you return
+          using your machine to render an image and create a number from that image to save on their server to compare to next time you return
         </p>
       </section>
 
       <section id="ipSection">
         <h2>IP Address Details</h2>
         <div id="map" class="mb-4"></div>
+        <p>The location isn't too precise because I'm apparently not using the most accurate service, just using the first one that worked
+          <a href="https://ipinfo.io/"><small>(ipinfo.io)</small></a><br>
+          It's one of many services that tries to keep track of the location of all IP addresses
+        </p>
         <table id="ip" border="1" class="table"></table>
       </section>
 
@@ -40,14 +45,14 @@
 
         <div id="socialRow" class="row justify-content-center"></div>
 
-        <p><i>Logged in</i> meaning, if you go to the site and you're already logged in<br>
+        <p><i>Logged in</i> meaning: if you go to the site and you're already logged in<br>
         Click the link for any sites whose icons loaded and you'll see you're already logged in</p>
         <p>If no sites are shown above, that's good and means your browser isn't saving cookies or is blocking the tracking attempts</p>
 
         <p><a href="https://robinlinus.github.io/socialmedia-leak/">
-          See how this works</a>&nbsp;&nbsp;
+          How does this work?</a><br>
           <a id="socialList" href="#" data-toggle="popover" data-trigger="focus" data-html="true">
-            What sites does this work with?</a>
+            What sites am I checking?</a>
         </p>
       </section>
 

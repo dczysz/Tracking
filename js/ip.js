@@ -35,11 +35,14 @@ function buildMap(mapDiv, coords) {
 
   var mymap = L.map(mapDiv, {
     center: coordsDouble,
-    zoom: 15,
+    zoom: 12,
     scrollWheelZoom: false
   });
 
-  var marker = L.marker(coordsDouble).addTo(mymap);
+  var circle = L.circle(coordsDouble, {
+    fillOpacity: 0.5,
+    radius: 2000
+}).addTo(mymap);
 
   L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
