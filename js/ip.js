@@ -4,18 +4,19 @@ $(document).ready(function() {
 
     var ipData = {
       ip: data.ip,
-      provider: getProvider(data.org),
+      provider: cleanProvider(data.org),
       city: data.city,
       state: data.region,
       zip: data.postal,
       country: data.country,
       location: data.loc,
-      areaCode: (data.phone != null)? data.phone : ''
+      areaCode: data.phone
     };
 
     if (!!ipData) {
       buildMap(document.getElementById('map'), ipData.location);
 
+      console.log('\n-- IP Address Info --');
       buildTable(document.getElementById('ip'), ipData);
 
       showSection(document.getElementById('ipSection'));
@@ -23,8 +24,8 @@ $(document).ready(function() {
   });
 });
 
-function getProvider(uglyProvider) {
-
+// Removes provider ID from beginning of string
+function cleanProvider(uglyProvider) {
   var wordArray = uglyProvider.split(' ');
   var prettyProvider = '';
   for (var i = 1; i < wordArray.length; i++) {
@@ -53,7 +54,7 @@ function buildMap(mapDiv, coords) {
 
   var circle = L.circle(coordsDouble, {
     fillOpacity: 0.5,
-    radius: 2000
+    radius: 1000
 }).addTo(mymap);
 
   L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {

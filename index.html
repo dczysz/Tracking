@@ -14,8 +14,8 @@
     <div class="container">
       <header class="m-5">
         <h1>Your Browser Fingerprint</h1>
-        <h5>This is <i>some</i> of the info that any website you visit can see about you</h5>
-        <h6 class="mb-4"><em>None of this info is getting saved</em></h6>
+        <h5>This is <i>some</i> of the info that any website can see about you</h5>
+        <h6 class="mb-4"><em>I'm not saving any of this info, but any sites can <small>without your permission</small></em></h6>
         <h5><a href="http://webkay.robinlinus.com/">
           See even more info on a better site</a></h5>
           <h5><a href="https://amiunique.org/">
@@ -24,7 +24,7 @@
 
       <section id="fingerprintSection">
         <h2>Info Directly From Your Browser</h2>
-        <table id="fingerprint" border="1" class="table"></table>
+        <table id="fingerprint" class="table table-sm table-striped"></table>
         <p>If canvas is enabled above, you're also susceptible to <a href="https://browserleaks.com/canvas#how-does-it-work">
           canvas fingerprinting</a>, which enables a site to uniquely identify your machine even without cookies enabled by
           using your machine to render an image <small>(that doesn't even need to be shown on the page)</small> and create a unique number from that image to save on their server to compare to next time you return
@@ -34,11 +34,11 @@
       <section id="ipSection">
         <h2>IP Address Details</h2>
         <div id="map" class="mb-4"></div>
-        <p>The location isn't too precise because I'm apparently not using the most accurate service, just using the first one that worked
+        <p>The location isn't too precise because I'm not using the most accurate service, just the first one that worked
           <a href="https://ipinfo.io/"><small>(ipinfo.io)</small></a><br>
           It's one of many services that tries to keep track of the location of all IP addresses
         </p>
-        <table id="ip" border="1" class="table"></table>
+        <table id="ip" class="table table-sm table-striped"></table>
       </section>
 
       <section id="socialSection">
@@ -117,14 +117,39 @@
 
         // make 2 cols of (key, value), only populate if has value
         for (var key in obj) {
-          if (obj[key] != '' && obj[key] != ',') {
+          if (true) { //obj[key] != '' && obj[key] != ',' && obj[key]!= null
             row = table.insertRow(-1);
             keyCell = row.insertCell(0);
             valCell = row.insertCell(1);
             keyCell.innerHTML = key;
-            valCell.innerHTML = obj[key];
+            valCell.innerHTML = cleanKey(obj[key]);
+
+            // Log to console
+            console.log(key + ': ' + valCell.innerHTML);
           }
         }
+      }
+
+      function cleanKey(key) {
+        if (Array.isArray(key)) { return arrayToString(key); }
+        else if ((typeof key === 'string') && (key.indexOf(',') >= -1) && (key.indexOf(', ') >= -1)) { return commaSpace(key); }
+        else { return key; }
+      }
+
+      // Makes comma separated string of array objects
+      function arrayToString(array) {
+        var str = '';
+        for (value of array) {
+          if (value != null) {
+            str += value;
+            if (value != array[array.length - 1]) str += ', ';
+          }
+        }
+      }
+
+      // Turn string ',' into ', ' for better table wrapping on mobile
+      function commaSpace(uglyString) {
+        return uglyString.replace(/,/g, ', ');
       }
 
       // Show section if it successfully loads

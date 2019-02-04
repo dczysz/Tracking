@@ -162,7 +162,7 @@ $(document).ready(function() {
   showSection(document.getElementById('socialSection'));
 });
 
-
+var printHeader = true;
 // Adds column to row of sites logged in
 function addCol(index, img) {
   var col = document.createElement('a');
@@ -176,6 +176,13 @@ function addCol(index, img) {
   title.appendChild(titleText);
   col.appendChild(title);
   document.getElementById('socialRow').appendChild(col);
+
+  // Log to console
+  if (printHeader) {
+    console.log('\n-- Social Media Sites --');
+    printHeader = false;
+  }
+  console.log('Logged into ' + platforms[index].domain);
 }
 
 // Returns bootstrap row with columns of site names

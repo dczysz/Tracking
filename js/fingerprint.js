@@ -1,43 +1,45 @@
 $(document).ready(function() {
+  var fingerprint;
+  setTimeout(function() {
+    // Set browser fingerprint attributes
+    fingerprint = {
+      browser: navigator.appName,
+      vendor: navigator.vendor,
+      codeName: navigator.appCodeName,
+      product: navigator.product,
+      version: navigator.appVersion,
+      userAgent: navigator.userAgent,
+      canvas: onOff(isCanvasSupported()),
+      cookies: onOff(navigator.cookieEnabled),
+      persistentCooks: onOff(hasLocalStorage()),
+      sessionCooks: onOff(hasSessionStorage()),
+      platform: navigator.platform,
+      cpu: cleanArray([navigator.cpuClass, navigator.oscpu]),
+      cpuCores: navigator.hardwareConcurrency,
+      timezone: getTimeZone(),
+      doNotTrack: onOff(navigator.doNotTrack),
+      isOnline: yesNo(navigator.onLine),
+      connectionType: getConnectionType(),
+      language: navigator.language.toUpperCase(),
+      plugins: getPlugins(),
+      previousUrl: shortenUrl(document.referrer),
+      screenRes: window.innerWidth + " x " + window.innerHeight + ', ' + screen.colorDepth + '-bit',
+      screenResMax: screen.width + " x " + screen.height,
+      lyingAboutRes: (hasLiedResolution())? 'Yes' : '',
+      orientation: screen.orientation.type.split('-')[0],
+      java: onOff(navigator.javaEnabled()),
+      flash: onOff(isFlashEnabled()),
+      mimeTypes: getMimeTypes(),
+      lastVisit: lastVisit()
+    };
+    console.log('-- Browser Fingerprint Info --');
+    buildTable(document.getElementById('fingerprint'), fingerprint);
 
-  // Set browser fingerprint attributes
-  var fingerprint = {
-    browser: navigator.appName,
-    vendor: navigator.vendor,
-    codeName: navigator.appCodeName,
-    product: navigator.product,
-    platform: navigator.appVersion,
-    userAgent: navigator.userAgent,
-    canvas: onOff(isCanvasSupported()),
-    colorDepth: screen.colorDepth,
-    cookies: onOff(navigator.cookieEnabled),
-    persistentCooks: onOff(hasLocalStorage()),
-    sessionCooks: onOff(hasSessionStorage()),
-    cpu: cleanArray([navigator.cpuClass, navigator.oscpu]),
-    cpuCores: navigator.hardwareConcurrency,
-    timezone: getTimeZone(),
-    doNotTrack: onOff(navigator.doNotTrack),
-    isOnline: (navigator.onLine)? 'Yes' : 'No',
-    connectionType: getConnectionType(),
-    language: navigator.language,
-    platform: navigator.platform,
-    plugins: getPlugins(),
-    previousUrl: document.referrer,
-    screenRes: window.innerWidth + " x " + window.innerHeight,
-    screenMax: screen.width + " x " + screen.height,
-    orientation: screen.orientation.type.split('-')[0],
-    javaEnabled: navigator.javaEnabled(),
-    flashEnabled: isFlashEnabled(),
-    mimeTypes: getMimeTypes(),
-    maxTouchPoints: navigator.maxTouchPoints,
-    lastVisit: lastVisit()
-  };
-
-  buildTable(document.getElementById('fingerprint'), fingerprint);
-
-  showSection(document.getElementById('fingerprintSection'));
+    showSection(document.getElementById('fingerprintSection'));
+  }, 250); // end main exucution
 
 
+  // Remove empty entries
   function cleanArray(array) {
     var cleanArray = [];
     for (value of array) {
@@ -46,15 +48,23 @@ $(document).ready(function() {
     return cleanArray;
   }
 
+  // Remove https
+  function shortenUrl(url) {
+    return url.replace(/^(http|https):\/\//, '');
+  }
+
   function onOff(boolean) {
     return (boolean)? 'On' : 'Off';
   }
 
+  function yesNo(boolean) {
+    return (boolean)? 'Yes' : 'No';
+  }
 
   function hasLocalStorage() {
     try {
       return !!window.localStorage;
-    } catch (e) {
+    } catch (_) {
       return true; // SecurityError when referencing it means it exists
     }
   }
@@ -62,7 +72,7 @@ $(document).ready(function() {
   function hasSessionStorage() {
     try {
       return !!window.sessionStorage;
-    } catch (e) {
+    } catch (_) {
       return true; // SecurityError when referencing it means it exists
     }
   }
@@ -71,7 +81,7 @@ $(document).ready(function() {
     var elem = document.createElement('canvas');
     try {
       return !!(elem.getContext && elem.getContext('2d'));
-    } catch (e) {
+    } catch (_) {
       return false;
     }
   }
@@ -79,7 +89,7 @@ $(document).ready(function() {
   function isDntEnabled() {
     try {
       return !!navigator.doNotTrack;
-    } catch (e) {
+    } catch (_) {
       return false;
     }
   }
@@ -112,9 +122,8 @@ $(document).ready(function() {
 
   function getConnectionType() {
     try {
-      console.log(navigator.connection.effectiveType);
-      return navigator.connection.effectiveType;
-    } catch (e) {
+      return navigator.connection.effectiveType.toUpperCase();
+    } catch (_) {
       return '';
     }
 
@@ -149,6 +158,10 @@ $(document).ready(function() {
     if (lastVisit.length != 0 || lastVisit != '') {
       return unescape(lastVisit.substring(10));
     }
-    return '';
+    return 'Your first visit';
   }
+
+  function hasLiedResolution() {
+    return screen.width < screen.availWidth || screen.height < screen.availHeight;
+}
 });
