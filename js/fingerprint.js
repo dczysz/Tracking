@@ -3,16 +3,16 @@ $(document).ready(function() {
   // Set browser fingerprint attributes
   var fingerprint = {
     browser: navigator.appName,
-    bVendor: navigator.vendor,
-    bCodeName: navigator.appCodeName,
-    bProduct: navigator.product,
-    bPlatform: navigator.appVersion,
-    bUserAgent: navigator.userAgent,
-    canvasEnabled: isCanvasSupported(),
+    vendor: navigator.vendor,
+    codeName: navigator.appCodeName,
+    product: navigator.product,
+    platform: navigator.appVersion,
+    userAgent: navigator.userAgent,
+    canvasOn: isCanvasSupported(),
     colorDepth: screen.colorDepth,
-    cookiesEnabled: navigator.cookieEnabled,
-    cookPersistent: hasLocalStorage(),
-    cookSession: hasSessionStorage(),
+    cookiesOn: navigator.cookieEnabled,
+    persistentCooks: hasLocalStorage(),
+    sessionCooks: hasSessionStorage(),
     cpu: cleanArray([navigator.cpuClass, navigator.oscpu]),
     cpuCores: navigator.hardwareConcurrency,
     timezone: getTimeZone(),
@@ -24,13 +24,13 @@ $(document).ready(function() {
     plugins: getPlugins(),
     previousUrl: document.referrer,
     screenRes: window.innerWidth + " x " + window.innerHeight,
-    screenResMax: screen.width + " x " + screen.height,
+    screenMax: screen.width + " x " + screen.height,
     orientation: screen.orientation.type.split('-')[0],
     javaEnabled: navigator.javaEnabled(),
     flashEnabled: isFlashEnabled(),
     mimeTypes: getMimeTypes(),
     maxTouchPoints: navigator.maxTouchPoints,
-    lastVisitCookie: lastVisit()
+    lastVisit: lastVisit()
   };
 
   buildTable(document.getElementById('fingerprint'), fingerprint);

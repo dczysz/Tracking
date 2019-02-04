@@ -4,15 +4,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Browser Tracking</title>
+    <link rel="icon" href="icons/icon.ico">
     <link rel="stylesheet" href="lib/css/leaflet.css">
     <link rel="stylesheet" href="lib/css/bootstrap.min.css">
-
     <link rel="stylesheet" href="css/style.css">
   </head>
   <body id="body" class="bg-dark text-light">
     <div class="container">
       <header class="m-5">
-        <h1>Your Browser Fingerprint</h1>
+        <h1 class="mb-4">Your Browser Fingerprint</h1>
         <h5><a href="http://webkay.robinlinus.com/">
           See even more info on a better site</a></h5>
           <h5><a href="https://amiunique.org/">
@@ -50,7 +50,9 @@
         </p>
       </section>
 
-
+      <footer>
+        Copyright &copy; <span id="year">2019</span> D. Czysz
+      </footer>
 
 
     </div><!-- end container -->
@@ -84,7 +86,7 @@
         // Batch add attributes to elements
         setAttributes(document.getElementsByTagName('section'),
                       ['class'],
-                      ['mb-4 p-4 shadow rounded bg-light text-dark']);
+                      ['mb-5 p-4 shadow rounded bg-light text-dark']);
         setAttributes(document.getElementsByTagName('h2'),
                       ['class'],
                       ['mb-4']);
