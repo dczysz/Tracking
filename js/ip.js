@@ -63,8 +63,5 @@ function buildMap(mapDiv, coords) {
     accessToken: 'pk.eyJ1IjoiY3p5c3oiLCJhIjoiY2pybnYyeW9lMGF0cDQ0azUzaTExbGMwNyJ9.rcB3JmerYE5vyRojnfvgKg',
   }).addTo(mymap);
 
-  // Make sure map tiles are loaded
-  setTimeout(function() {
-    myMap.invalidateSize();
-  }, 250);
+  
 }

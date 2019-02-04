@@ -22,7 +22,7 @@ $(document).ready(function() {
       connectionType: getConnectionType(),
       language: navigator.language.toUpperCase(),
       plugins: getPlugins(),
-      previousUrl: (shortenUrl(document.referrer) == '')? 'Only woks if you got to this page by clicking a link' : '',
+      previousUrl: shortenUrl(document.referrer),
       screenRes: window.innerWidth + " x " + window.innerHeight + ', ' + screen.colorDepth + '-bit',
       screenResMax: screen.width + " x " + screen.height,
       lyingAboutRes: (hasLiedResolution())? 'Yes' : '',
@@ -32,8 +32,7 @@ $(document).ready(function() {
       mimeTypes: getMimeTypes(),
       lastVisitCookie: lastVisit()
     };
-    console.log(shortenUrl('https://dczysz.github.io/Tracking/'));
-    console.log('-- Browser Fingerprint Info --');
+    console.log('\n-- Browser Fingerprint Info --');
     buildTable(document.getElementById('fingerprint'), fingerprint);
 
     showSection(document.getElementById('fingerprintSection'));

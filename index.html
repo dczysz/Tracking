@@ -118,15 +118,14 @@
 
         // make 2 cols of (key, value), only populate if has value
         for (var key in obj) {
+          // Log to console
+          console.log(key + ': ' + obj[key]);
           if (obj[key] != '' && obj[key] != ',' && obj[key]!= null) {
             row = table.insertRow(-1);
             keyCell = row.insertCell(0);
             valCell = row.insertCell(1);
             keyCell.innerHTML = key;
             valCell.innerHTML = cleanKey(obj[key]);
-
-            // Log to console
-            console.log(key + ': ' + valCell.innerHTML);
           }
         }
       }
