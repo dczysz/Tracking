@@ -16,7 +16,7 @@ $(document).ready(function() {
     cpu: cleanArray([navigator.cpuClass, navigator.oscpu]),
     cpuCores: navigator.hardwareConcurrency,
     timezone: getTimeZone(),
-    dntEnabled: navigator.doNotTrack == 1,
+    doNotTrack: (navigator.doNotTrack == 1)? 'On' : 'Off',
     isOnline: navigator.onLine,
     connectionType: getConnectionType(),
     language: navigator.language,
