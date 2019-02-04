@@ -1,0 +1,14 @@
+section {
+  display: none;
+}
+h1, h2, h5 {
+  text-align: center;
+}
+#map {
+  height: 300px;
+  display: none;
+}
+#socialRow img {
+  margin-left: auto;
+  margin-right: auto;
+}
