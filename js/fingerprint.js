@@ -30,7 +30,8 @@ $(document).ready(function() {
       java: onOff(navigator.javaEnabled()),
       flash: onOff(isFlashEnabled()),
       mimeTypes: getMimeTypes(),
-      lastVisitCookie: lastVisit()
+      lastVisit: lastVisit(),
+      thisVisit: new Date().toLocaleString()
     };
     console.log('\n-- Browser Fingerprint Info --');
     buildTable($('#fingerprint')[0], fingerprint);
