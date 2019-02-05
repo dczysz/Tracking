@@ -23,7 +23,7 @@ $(document).ready(function() {
       language: navigator.language.toUpperCase(),
       plugins: getPlugins(),
       previousUrl: shortenUrl(document.referrer),
-      screenRes: window.innerWidth + " x " + window.innerHeight + ', ' + screen.colorDepth + '-bit',
+      screenRes: window.innerWidth + " x " + window.innerHeight + ' x ' + screen.colorDepth + '-bit',
       screenResMax: screen.width + " x " + screen.height,
       lyingAboutRes: (hasLiedResolution())? 'Yes' : '',
       orientation: screen.orientation.type.split('-')[0],
@@ -31,14 +31,71 @@ $(document).ready(function() {
       flash: onOff(isFlashEnabled()),
       mimeTypes: getMimeTypes(),
       lastVisit: lastVisit(),
-      thisVisit: new Date().toLocaleString()
+      thisVisit: new Date().toLocaleString(),
+      fingerprintID: null
     };
+
+    fingerprint.fingerprintID = hash(fingerprint);
+
     console.log('\n-- Browser Fingerprint Info --');
     buildTable($('#fingerprint')[0], fingerprint);
 
     showSection($('#fingerprintSection')[0]);
   }, 250); // end main exucution
 
+
+
+  // Create 19 digit hash from fingerprint object
+  function hash(obj) {
+    const MIDDLE = 4; // Use first and x (if it exists) of each key's value
+    var hash = '';
+
+    for (var key in obj) {
+      if (obj[key] !== '' && obj[key] !== ',' && obj[key] != null && !ignore(key)) {
+        // Only get second char of char code of first and MIDDLE chars
+        for (var i = 0; i < obj[key].length && i < MIDDLE + 1; i += MIDDLE) {
+          var code = removeSpaces(obj[key].toString()) .charCodeAt(i).toString();
+          hash += code.charAt(code.length - 1);
+        }
+      }
+    }
+    return getHash(hash / hash.length);
+
+
+    // Returns true if key is in ignore[]
+    // For ignoring variable or redundant info for hash
+    function ignore(key) {
+      var ignore = [
+        'persistentCooks',
+        'sessionCooks',
+        'cpu',
+        'isOnline',
+        'previousUrl',
+        'screenResMax',
+        'lastVisit',
+        'thisVisit',
+        'fingerprintID'
+      ];
+      for (var ignoreKey of ignore) {
+        if (ignoreKey == key) return true;
+      }
+      return false;
+    }
+
+    function getHash(hashString) {
+      return removeExponent(hashString.toString());
+    }
+
+    // Change 3.125e+14 to 3125
+    function removeExponent(uglyString) {
+      return uglyString.replace('.', '').replace(/e\+/, '');
+    }
+  }
+
+  // Remove space from string
+  function removeSpaces(uglyString) {
+    return uglyString.replace(' ', '');
+  }
 
   // Remove empty entries
   function cleanArray(array) {

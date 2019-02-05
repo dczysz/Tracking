@@ -1,5 +1,6 @@
 $(document).ready(function() {
 
+  // Doesn't always work on localhost/127.0.0.1
   $.getJSON('https://ipinfo.io', function(data) {
 
     var ipData = {

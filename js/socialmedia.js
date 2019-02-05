@@ -146,18 +146,22 @@ var platforms = [
 
 // Update social media table with favicons
 $(document).ready(function() {
-  const imgSize = 24;
+  // Don't send out a billion requests when I'm testing
+  if (window.location.hostname !== '127.0.0.1' && window.location.hostname !== '') {
+    const imgSize = 24;
 
-  // Try to load images, then set onLoad to show loaded image
-  for (var i = 0; i < platforms.length; i++) {
-    // Get current site
-    var site = platforms[i];
+    // Try to load images, then set onLoad to show loaded image
+    for (var i = 0; i < platforms.length; i++) {
+      // Get current site
+      var site = platforms[i];
 
-    var img = document.createElement('img');
-    img.setAttribute('onLoad', 'addCol(' + i + ', this)');
-    img.setAttribute('src', site.domain + site.redirect);
-    img.setAttribute('height', imgSize);
-  }
+      var img = document.createElement('img');
+      img.setAttribute('onLoad', 'addCol(' + i + ', this)');
+      img.setAttribute('src', site.domain + site.redirect);
+      img.setAttribute('height', imgSize);
+    }
+  } else { }
+
   showSection($('#socialSection')[0]);
 });
 
