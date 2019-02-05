@@ -158,8 +158,7 @@ $(document).ready(function() {
     img.setAttribute('src', site.domain + site.redirect);
     img.setAttribute('height', imgSize);
   }
-
-  showSection(document.getElementById('socialSection'));
+  showSection($('#socialSection')[0]);
 });
 
 var printHeader = true;
@@ -175,9 +174,9 @@ function addCol(index, img) {
       titleText = document.createTextNode(platforms[index].name);
   title.appendChild(titleText);
   col.appendChild(title);
-  document.getElementById('socialRow').appendChild(col);
+  $('#socialRow')[0].appendChild(col);
 
-  // Log to console
+  // Log results to console
   if (printHeader) {
     console.log('\n-- Social Media Sites --');
     printHeader = false;
@@ -185,9 +184,8 @@ function addCol(index, img) {
   console.log('Logged into ' + platforms[index].domain);
 }
 
-// Returns bootstrap row with columns of site names
-function getSocialList() {
-  const numCols = 3;
+// Returns bootstrap row with 2 columns of site names
+function getSocialListRow() {
   var list = document.createElement('div'),
       row = document.createElement('div');
   row.setAttribute('class', 'row');

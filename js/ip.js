@@ -14,12 +14,12 @@ $(document).ready(function() {
     };
 
     if (!!ipData) {
-      showSection(document.getElementById('ipSection'));
+      showSection($('#ipSection')[0]);
 
-      buildMap(document.getElementById('map'), ipData.location);
+      buildMap($('#map')[0], ipData.location);
 
       console.log('\n-- IP Address Info --');
-      buildTable(document.getElementById('ip'), ipData);
+      buildTable($('#ip')[0], ipData);
     }
   });
 });
@@ -63,5 +63,5 @@ function buildMap(mapDiv, coords) {
     accessToken: 'pk.eyJ1IjoiY3p5c3oiLCJhIjoiY2pybnYyeW9lMGF0cDQ0azUzaTExbGMwNyJ9.rcB3JmerYE5vyRojnfvgKg',
   }).addTo(mymap);
 
-  
+
 }

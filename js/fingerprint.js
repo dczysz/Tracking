@@ -33,9 +33,9 @@ $(document).ready(function() {
       lastVisitCookie: lastVisit()
     };
     console.log('\n-- Browser Fingerprint Info --');
-    buildTable(document.getElementById('fingerprint'), fingerprint);
+    buildTable($('#fingerprint')[0], fingerprint);
 
-    showSection(document.getElementById('fingerprintSection'));
+    showSection($('#fingerprintSection')[0]);
   }, 250); // end main exucution
 
 

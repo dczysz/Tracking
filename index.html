@@ -80,7 +80,7 @@
 
         // Popover
         // Populate popover with list of social sites getting checked
-        document.getElementById('socialList').setAttribute('data-content', getSocialList());
+        document.getElementById('socialList').setAttribute('data-content', getSocialListRow());
         // Prevent scroll to top on click
         $('[data-toggle="popover"]')
           .popover({
@@ -91,15 +91,19 @@
         });
 
         // Batch add attributes to elements
-        setAttributes(document.getElementsByTagName('section'),
+        setAttributes($('section'),
                       ['class'],
                       ['mb-5 p-4 shadow rounded bg-light text-dark']);
-        setAttributes(document.getElementsByTagName('h2'),
+        setAttributes($('h2'),
                       ['class'],
                       ['mb-4']);
-        setAttributes(document.getElementsByTagName('a'),
+        setAttributes($('a'),
                       ['rel',        'target'],
                       ['noreferrer', '_blank']);
+
+        // Shrink margin from last section
+        $('section')[$('section').length - 1].classList.remove('mb-5');
+        $('section')[$('section').length - 1].classList.add('mb-2');
       }); // End Document Ready
 
       // Set attribute of array of elements
@@ -116,10 +120,11 @@
       function buildTable(table, obj) {
         var row, value;
 
-        // make 2 cols of (key, value), only populate if has value
+        // Make 2 cols of (key, value)
         for (var key in obj) {
-          // Log to console
+          // Log all results to console
           console.log(key + ': ' + obj[key]);
+          // Only populate table if has value
           if (obj[key] != '' && obj[key] != ',' && obj[key]!= null) {
             row = table.insertRow(-1);
             keyCell = row.insertCell(0);
