@@ -80,7 +80,7 @@
 
         // Popover
         // Populate popover with list of social sites getting checked
-        document.getElementById('socialList').setAttribute('data-content', getSocialListRow());
+        $('#socialList')[0].setAttribute('data-content', getSocialListRow());
         // Prevent scroll to top on click
         $('[data-toggle="popover"]')
           .popover({
@@ -136,8 +136,15 @@
       }
 
       function cleanKey(key) {
-        if (Array.isArray(key)) { return arrayToString(key); }
-        else if ((typeof key === 'string') && (key.indexOf(',') >= -1) && (key.indexOf(', ') >= -1)) { return commaSpace(key); }
+        if (Array.isArray(key)) {
+          return arrayToString(key);
+        } else if (
+          (typeof key === 'string') &&
+          (key.indexOf(',') >= -1) &&
+          (key.indexOf(', ') >= -1)
+          ) { 
+            return commaSpace(key);
+          }
         else { return key; }
       }
 
