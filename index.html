@@ -26,18 +26,18 @@
         <h2>Info Directly From Your Browser</h2>
         <table id="fingerprint" class="table table-sm table-striped border"></table>
         <p>
-          I didn't spend much time on the fingerprintID above, so yours won't be very unique but it serves its purpose<br>
+          I didn't spend much time on the <a href="#fingerprintID">fingerprintID</a> above, so yours won't be very unique but it serves its purpose<br>
           If you reload the page or come back another time using the same device and browser, it should be the same
         </p>
         <p>
-          If canvas is enabled above, you're also susceptible to <a href="https://browserleaks.com/canvas#how-does-it-work">
+          If <a href="#canvas">canvas</a> is enabled above, you're also susceptible to <a href="https://browserleaks.com/canvas#how-does-it-work">
           canvas fingerprinting</a>, which enables a site to uniquely identify your machine even without cookies enabled by
           using your machine to render an image <small>(that doesn't even need to be shown on the page)</small>
           and create a unique number, like the fingerprintID, from that image to save on their server to compare to next time you return
         </p>
         <p>
           A simple cookie is all that's needed to remember you normally<br>
-          In the table above, the lastVisit date and time is read from a cookie I update with thisVisit's value each time you load the page<br>
+          In the table above, the <a href="#lastVisit">lastVisit</a> date and time is read from a cookie I update with thisVisit's value each time you load the page<br>
           It only works with cookies enabled
         </p>
       </section>
@@ -120,6 +120,11 @@
         // Shrink margin from last section
         $('section')[$('section').length - 1].classList.remove('mb-5');
         $('section')[$('section').length - 1].classList.add('mb-2');
+
+        // Add and style links referencing table rows
+        setTimeout(function() {
+          tableLink(['lastVisit', 'canvas', 'fingerprintID']);
+        }, 500); // end timeout
       }); // End Document Ready
 
       // Set attribute of array of elements
@@ -128,8 +133,20 @@
           for (var i = 0; i < attributeArray.length; i++) {
             elem.setAttribute(attributeArray[i], valueArray[i]);
           }
-
         }
+      }
+
+      // Add links to table rows mentioned in <p>s
+      // Remove rel and target attribtes set by setAttributes() above
+      // @param ids = array of id matching inline link and fingerprint key
+      function tableLink(ids) {
+        for (id of ids) {
+          $('td:contains(' + id + ')')[0].setAttribute   ('id', id);
+          $('a:contains('  + id + ')')[0].classList.add  ('text-secondary');
+          $('a:contains('  + id + ')')[0].removeAttribute('rel');
+          $('a:contains('  + id + ')')[0].removeAttribute('target');
+        }
+
       }
 
       // Add content to table

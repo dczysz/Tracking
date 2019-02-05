@@ -41,7 +41,7 @@ $(document).ready(function() {
     buildTable($('#fingerprint')[0], fingerprint);
 
     showSection($('#fingerprintSection')[0]);
-  }, 250); // end main exucution
+  }, 250); // end timeout
 
 
 
