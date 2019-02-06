@@ -76,14 +76,11 @@ $(document).ready(function() {
         'thisVisit',
         'fingerprintID'
       ];
-      for (var ignoreKey of ignore) {
-        if (ignoreKey == key) return true;
-      }
-      return false;
+      return ($.inArray(key, ignore) != -1)? true : false;
     }
 
-    function getHash(hashString) {
-      return removeExponent(hashString.toString());
+    function getHash(hash) {
+      return removeExponent(hash.toString());
     }
 
     // Change 3.125e+14 to 3125

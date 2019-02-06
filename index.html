@@ -156,7 +156,7 @@
         // Make 2 cols of (key, value)
         for (var key in obj) {
           // Log all results to console
-          console.log(key + ': ' + obj[key]);
+          console.log(`${key}: ${obj[key]}`);
           // Only populate table if has value
           if (obj[key] != '' && obj[key] != ',' && obj[key]!= null) {
             row = table.insertRow(-1);

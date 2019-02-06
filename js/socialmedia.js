@@ -146,30 +146,41 @@ var platforms = [
 
 // Update social media table with favicons
 $(document).ready(function() {
+
   // Don't send out a billion requests when I'm testing
-  if (window.location.hostname !== '127.0.0.1' && window.location.hostname !== '') {
-    const imgSize = 24;
-
-    // Try to load images, then set onLoad to show loaded image
-    for (var i = 0; i < platforms.length; i++) {
-      // Get current site
-      var site = platforms[i];
-
-      var img = document.createElement('img');
-      img.setAttribute('onLoad', 'addCol(' + i + ', this)');
-      img.setAttribute('src', site.domain + site.redirect);
-      img.setAttribute('height', imgSize);
-    }
-  } else { }
-
+  if (window.location.hostname === '127.0.0.1' || window.location.hostname === '') { // Atom-live-server or file:///C:/...
+    // Add onClick() to copyright year to fetch images
+    $('#socialSection h2')[0].setAttribute('onClick', 'loadImages()'); // Live page
+  } else {
+    loadImages();
+  }
   showSection($('#socialSection')[0]);
 });
+
+// Load images, set onload to addCol()
+function loadImages() {
+  const imgSize = 24;
+
+  // Try to load images, then set onLoad to show loaded image
+  for (var i = 0; i < platforms.length; i++) {
+    // Get current site
+    var site = platforms[i];
+
+    var img = document.createElement('img');
+    img.setAttribute('onLoad', 'addCol(' + i + ', this)');
+    img.setAttribute('src', site.domain + site.redirect);
+    img.setAttribute('height', imgSize);
+  }
+}
 
 var printHeader = true;
 // Adds column to row of sites logged in
 function addCol(index, img) {
+  const numColsLg = 6,
+        numColsMd = 4,
+        numColsSm = 3;
   var col = document.createElement('a');
-  col.setAttribute('class', 'col-4 col-md-3 text-center');
+  col.setAttribute('class', `col-${12/numColsSm} col-md-${12/numColsMd} col-lg-${12/numColsLg} text-center`);
   col.setAttribute('href', platforms[index].domain);
   col.setAttribute('target', '_blank');
   col.appendChild(img);
@@ -185,10 +196,10 @@ function addCol(index, img) {
     console.log('\n-- Social Media Sites --');
     printHeader = false;
   }
-  console.log('Logged into ' + platforms[index].domain);
+  console.log(`Logged into ${platforms[index].domain}`);
 }
 
-// Returns bootstrap row with 2 columns of site names
+// Returns bootstrap row div with 2 columns of site names
 function getSocialListRow() {
   var list = document.createElement('div'),
       row = document.createElement('div');
@@ -206,6 +217,9 @@ function getSocialListRow() {
 
 /*
   These sites have been tried and didn't work or no longer work
+
+  Kickstarter
+  BoardGameGeek
 
 {
     domain: "https://twitter.com",
