@@ -79,13 +79,14 @@ $(document).ready(function() {
       return ($.inArray(key, ignore) != -1)? true : false;
     }
 
+    // TODO: Do more
     function getHash(hash) {
       return removeExponent(hash.toString());
     }
 
     // Change 3.125e+14 to 3125
     function removeExponent(uglyString) {
-      return uglyString.replace('.', '').replace(/e\+/, '');
+      return uglyString.replace('.', '').replace('e+', '');
     }
   }
 
@@ -105,7 +106,7 @@ $(document).ready(function() {
 
   // Remove 'http[s]://' and trailing '/'
   function shortenUrl(url) {
-    return url.replace(/^(http|https):\/\//, '').replace(/\/$/, '');
+    return url.replace(/^https?:\/\//, '').replace(/\/$/, '');
   }
 
   function onOff(boolean) {
