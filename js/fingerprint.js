@@ -25,7 +25,7 @@ $(document).ready(function() {
       previousUrl: shortenUrl(document.referrer),
       screenRes: window.innerWidth + " x " + window.innerHeight + ' x ' + screen.colorDepth + '-bit',
       screenResMax: screen.width + " x " + screen.height,
-      lyingAboutRes: (hasLiedResolution())? 'Yes' : '',
+      lyingAboutRes: hasLiedResolution()? 'Yes' : '',
       orientation: screen.orientation.type.split('-')[0],
       java: onOff(navigator.javaEnabled()),
       flash: onOff(isFlashEnabled()),
@@ -35,7 +35,7 @@ $(document).ready(function() {
       fingerprintID: null
     };
 
-    fingerprint.fingerprintID = hash(fingerprint);
+    fingerprint.fingerprintID = getFingerprintMD5();
 
     console.log('\n-- Browser Fingerprint Info --');
     buildTable($('#fingerprint')[0], fingerprint);
@@ -44,55 +44,34 @@ $(document).ready(function() {
   }, 250); // end timeout
 
 
+  // Create MD5 hash of fingerprint using YaMD5.js
+  // https://github.com/gorhill/yamd5.js
+  function getFingerprintMD5() {
+    var md5Hash = new YaMD5();
+    md5Hash.start();
 
-  // Create 19 digit hash from fingerprint object
-  function hash(obj) {
-    const MIDDLE = 4; // Use first and x (if it exists) of each key's value
-    var hash = '';
-
-    for (var key in obj) {
-      if (obj[key] !== '' && obj[key] !== ',' && obj[key] != null && !ignore(key)) {
-        // Only get second char of char code of first and MIDDLE chars
-        for (var i = 0; i < obj[key].length && i < MIDDLE + 1; i += MIDDLE) {
-          var code = removeSpaces(obj[key].toString()) .charCodeAt(i).toString();
-          hash += code.charAt(code.length - 1);
-        }
+    for (var key in fingerprint) {
+      if (fingerprint[key] !== '' && fingerprint[key] !== ',' && fingerprint[key] != null && !ignore(key)) {
+        md5Hash.appendStr(String.toString(fingerprint[key]));
       }
     }
-    return getHash(hash / hash.length);
-
+    return md5Hash.end();
 
     // Returns true if key is in ignore[]
     // For ignoring variable or redundant info for hash
     function ignore(key) {
       var ignore = [
-        'persistentCooks',
-        'sessionCooks',
-        'cpu',
         'isOnline',
         'previousUrl',
-        'screenResMax',
+        'screenRes',
+        'lyingAboutRes',
+        'orientation',
         'lastVisit',
         'thisVisit',
-        'fingerprintID'
+        'fingerprintMD5'
       ];
       return ($.inArray(key, ignore) != -1)? true : false;
     }
-
-    // TODO: Do more
-    function getHash(hash) {
-      return removeExponent(hash.toString());
-    }
-
-    // Change 3.125e+14 to 3125
-    function removeExponent(uglyString) {
-      return uglyString.replace('.', '').replace('e+', '');
-    }
-  }
-
-  // Remove space from string
-  function removeSpaces(uglyString) {
-    return uglyString.replace(' ', '');
   }
 
   // Remove empty entries
@@ -182,7 +161,6 @@ $(document).ready(function() {
     } catch (_) {
       return '';
     }
-
   }
 
   function getMimeTypes() {
@@ -217,7 +195,9 @@ $(document).ready(function() {
     return 'Your first visit';
   }
 
+  // Return true if resolution has been modified, hopefully accounting for browser toolbars
   function hasLiedResolution() {
-    return screen.width < screen.availWidth || screen.height < screen.availHeight;
+    return screen.width != screen.availWidth || screen.height != screen.availHeight ||
+           screen.width != window.innerWidth || screen.height * 0.85 > window.innerHeight;
 }
 });
