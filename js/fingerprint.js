@@ -55,7 +55,23 @@ $(document).ready(function() {
         md5Hash.appendStr(String.toString(fingerprint[key]));
       }
     }
-    return md5Hash.end();
+
+    // Add spaces for mobile display
+    const NUM_SPACES = 3;
+    let hash = md5Hash.end(),
+        hashWithSpaces = '',
+        spacesCounter = 1;
+
+    for (let i = 0; i < hash.length; i++) {
+      hashWithSpaces += hash[i];
+      if (spacesCounter >= hash.length / (NUM_SPACES + 1)) {
+        hashWithSpaces += ' ';
+        spacesCounter = 1;
+      }
+      else spacesCounter++;
+    }
+
+    return hashWithSpaces;
 
     // Returns true if key is in ignore[]
     // For ignoring variable or redundant info for hash
