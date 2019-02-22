@@ -25,7 +25,7 @@ $(document).ready(function() {
       previousUrl: shortenUrl(document.referrer),
       screenRes: window.innerWidth + " x " + window.innerHeight + ' x ' + screen.colorDepth + '-bit',
       screenResMax: screen.width + " x " + screen.height,
-      lyingAboutRes: hasLiedResolution()? 'Yes' : '',
+      lyingAboutRes: lyingAboutRes()? 'Yes' : '',
       orientation: screen.orientation.type.split('-')[0],
       java: onOff(navigator.javaEnabled()),
       flash: onOff(isFlashEnabled()),
@@ -212,7 +212,7 @@ $(document).ready(function() {
   }
 
   // Return true if resolution has been modified, hopefully accounting for browser toolbars
-  function hasLiedResolution() {
+  function lyingAboutRes() {
     return screen.width != screen.availWidth || screen.height != screen.availHeight ||
            screen.width != window.innerWidth || screen.height * 0.85 > window.innerHeight;
 }

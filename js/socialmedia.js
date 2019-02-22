@@ -3,7 +3,8 @@ var platforms = [
     {
         domain: "https://500px.com",
         redirect: "/login?r=%2Ffavicon.ico",
-        name: "500px"
+        name: "500px",
+        breach: "https://thehackernews.com/2019/02/data-breach-website.html"
     }, {
         domain: "https://www.academia.edu",
         redirect: "/login?cp=/favicon.ico&cs=www",
@@ -21,17 +22,9 @@ var platforms = [
         redirect: "/login/de/index?ref=https://eu.battle.net/favicon.ico",
         name: "Battle.net"
     }, {
-        domain: "https://bitbucket.org",
-        redirect: "/account/signin/?next=/favicon.ico",
-        name: "BitBucket"
-    }, {
         domain: "https://accounts.google.com",
         redirect: "/ServiceLogin?service=blogger&hl=de&passive=1209600&continue=https://www.blogger.com/favicon.ico",
         name: "Blogger"
-    }, {
-        domain: "https://carbonmade.com",
-        redirect: "/signin?returnTo=favicon.ico",
-        name: "Carbonmade"
     }, {
         domain:"https://accounts.craigslist.org",
         redirect:"/login?rt=L&rp=%2ffavicon.ico&step=confirmation",
@@ -44,10 +37,6 @@ var platforms = [
         domain: "https://www.dropbox.com",
         redirect: "/login?cont=https%3A%2F%2Fwww.dropbox.com%2Fstatic%2Fimages%2Fabout%2Fdropbox_logo_glyph_2015.svg",
         name: "Dropbox"
-    }, {
-        domain: "https://courses.edx.org",
-        redirect: "/login?next=/favicon.ico",
-        name: "EdX"
     }, {
         domain: "https://www.expedia.de",
         redirect: "/user/login?ckoflag=0&selc=0&uurl=qscr%3Dreds%26rurl%3D%252Ffavicon.ico",
@@ -149,7 +138,7 @@ $(document).ready(function() {
 
   // Don't send out a billion requests when I'm testing
   if (window.location.hostname === '127.0.0.1' || window.location.hostname === '') { // Atom-live-server or file:///C:/...
-    // Add onClick() to copyright year to fetch images
+    // Add onClick() to section header to fetch images
     $('#socialSection h2')[0].setAttribute('onClick', 'loadImages()'); // Live page
   } else {
     loadImages();
@@ -166,16 +155,21 @@ function loadImages() {
     // Get current site
     var site = platforms[i];
 
-    var img = document.createElement('img');
-    img.setAttribute('onLoad', 'addCol(' + i + ', this)');
+    var img = document.createElement('img'),
+        onLoadText = 'addCol(' + i + ', this)';
+
+    img.setAttribute('onLoad', onLoadText);
     img.setAttribute('src', site.domain + site.redirect);
     img.setAttribute('height', imgSize);
+    if (site.hasOwnProperty('breach')) {
+      console.log('\n' + site.name + ' breach: ' + encodeURIComponent(site.breach));
+    }
   }
 }
 
-var printHeader = true;
+var firstLoad = true;
 // Adds column to row of sites logged in
-function addCol(index, img) {
+function addCol(index, img, breach = null) {
   const numColsLg = 6,
         numColsMd = 4,
         numColsSm = 3;
@@ -187,16 +181,52 @@ function addCol(index, img) {
 
   var title = document.createElement('p'),
       titleText = document.createTextNode(platforms[index].name);
+
+  // Add breach link to list if it exists, make link red
+  for (let i = 0; i < platforms.length; i++) {
+    let site = platforms[i];
+    if (site.hasOwnProperty('breach')) {
+      if (site.name == platforms[index].name) {
+        col.classList.add('breach');
+        addBreachLink(site.name, site.breach);
+      }
+    }
+  }
+
   title.appendChild(titleText);
   col.appendChild(title);
   $('#socialRow')[0].appendChild(col);
 
-  // Log results to console
-  if (printHeader) {
+
+
+  // Hide #noSites, show breach list
+  if (firstLoad) {
+    $('#noSites').addClass('d-none');
+
     console.log('\n-- Social Media Sites --');
-    printHeader = false;
+    firstLoad = false;
   }
+  // Log results to console
   console.log(`Logged into ${platforms[index].domain}`);
+}
+
+// Takes strings of site name and breach info url
+// Apends li to #breachList ol with link
+function addBreachLink(site, link) {
+  var ol = $('#breachList ul')[0],
+      li = document.createElement('li'),
+      a = document.createElement('a');
+  a.innerHTML = site;
+  a.setAttribute('href', link);
+  a.setAttribute('target', '_blank');
+  a.classList.add('breach');
+  li.appendChild(a);
+  ol.appendChild(li);
+
+  // Toggle visibility if first link
+  if ($('#breachList')[0].classList.contains('d-none')) {
+    $('#breachList').removeClass('d-none');
+  }
 }
 
 // Returns bootstrap row div with 2 columns of site names
@@ -216,7 +246,8 @@ function getSocialListRow() {
 
 
 /*
-  These sites have been tried and didn't work or no longer work
+  These sites have been tried and didn't work or no longer work,
+  most likely due to hosting favicon on cdn
 
   Kickstarter
   BoardGameGeek
@@ -270,7 +301,19 @@ function getSocialListRow() {
     domain: "ubisoft.com",
     redirect: "connect.ubi.com",
     name: "Ubisoft"
-}
+} {
+    domain: "https://courses.edx.org",
+    redirect: "/login?next=/favicon.ico",
+    name: "EdX"
+}, {
+    domain: "https://bitbucket.org",
+    redirect: "/account/signin/?next=/favicon.ico",
+    name: "BitBucket"
+}, {
+    domain: "https://carbonmade.com",
+    redirect: "/signin?returnTo=favicon.ico",
+    name: "Carbonmade"
+},
 
 
 

@@ -17,12 +17,27 @@ h1, h2, h5, h6 {
   margin-left: auto;
   margin-right: auto;
 }
+.breach {
+  color: red;
+}
+a.breach {
+  color: red;
+}
+#breachList h6 {
+  text-align: left;
+}
+#breachList ul {
+  list-style-type: none;
+  padding-left: 0;
+  margin-bottom: 30px;
+}
 footer {
   color: #666666;
   text-align: center;
   font-size: 0.8em;
   padding-bottom: 10px;
 }
+
 
 /* Botostrap md top */
 @media (max-width: 991px) {

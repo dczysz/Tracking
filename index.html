@@ -61,10 +61,17 @@
         <div id="socialRow" class="row justify-content-center"></div>
 
         <p>
-          <i>Logged in</i> meaning: if you go to the site and you're already logged in<br>
+          <i>Logged in</i> meaning: if you go to the site you'll already be logged in<br>
           Click on any site and you'll see you're already logged in
         </p>
-        <p>If no sites are shown above, that's good and means your browser isn't saving cookies or is blocking the tracking attempts</p>
+        <p id="noSites">If no sites are shown above, that's good and means your browser isn't saving cookies or is blocking the tracking attempts</p>
+
+        <div id="breachList" class="d-none">
+          <h6>You're logged into some sites that have been breached...</h6>
+          <p>Click a link below to see more information</p>
+          <ul>
+          </ul>
+        </div>
 
         <p>
           <a href="https://robinlinus.github.io/socialmedia-leak/">
