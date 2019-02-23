@@ -4,7 +4,8 @@ var platforms = [
         domain: "https://500px.com",
         redirect: "/login?r=%2Ffavicon.ico",
         name: "500px",
-        breach: "https://thehackernews.com/2019/02/data-breach-website.html"
+        breach: "https://thehackernews.com/2019/02/data-breach-website.html",
+		breachYear: "2018"
     }, {
         domain: "https://www.academia.edu",
         redirect: "/login?cp=/favicon.ico&cs=www",
@@ -20,7 +21,9 @@ var platforms = [
     }, {
         domain: "https://eu.battle.net",
         redirect: "/login/de/index?ref=https://eu.battle.net/favicon.ico",
-        name: "Battle.net"
+        name: "Battle.net",
+		breach: "https://thehightechsociety.com/blizzard-battle-net-hack/",
+		breachYear: "2012"
     }, {
         domain: "https://accounts.google.com",
         redirect: "/ServiceLogin?service=blogger&hl=de&passive=1209600&continue=https://www.blogger.com/favicon.ico",
@@ -36,7 +39,9 @@ var platforms = [
     }, {
         domain: "https://www.dropbox.com",
         redirect: "/login?cont=https%3A%2F%2Fwww.dropbox.com%2Fstatic%2Fimages%2Fabout%2Fdropbox_logo_glyph_2015.svg",
-        name: "Dropbox"
+        name: "Dropbox",
+		breach: "https://thehackernews.com/2016/08/dropbox-data-breach.html",
+		breachYear: "2016"
     }, {
         domain: "https://www.expedia.de",
         redirect: "/user/login?ckoflag=0&selc=0&uurl=qscr%3Dreds%26rurl%3D%252Ffavicon.ico",
@@ -116,7 +121,9 @@ var platforms = [
     }, {
         domain: "https://www.tumblr.com",
         redirect: "/login?redirect_to=%2Ffavicon.ico",
-        name: "Tumblr"
+        name: "Tumblr",
+		breach: "https://thehackernews.com/2016/05/tumblr-data-breach.html",
+		breachYear: "2013"
     }, {
         domain:"https://www.twitch.tv",
         redirect:"/login?redirect_on_login=/favicon.ico",
@@ -124,7 +131,9 @@ var platforms = [
     }, {
         domain: "https://vk.com",
         redirect: "/login?u=2&to=ZmF2aWNvbi5pY28-",
-        name: "VK"
+        name: "VK",
+		breach: "https://thehackernews.com/2016/06/vk-com-data-breach.html",
+		breachYear: "2016"
     }, {
         domain: "https://accounts.google.com",
         redirect: "/ServiceLogin?passive=true&continue=https%3A%2F%2Fwww.youtube.com%2Ffavicon.ico&uilel=3&hl=en&service=youtube",
@@ -268,7 +277,9 @@ function getSocialListRow() {
     name: "Slack"
 }, {
     url: "https://tablet.www.linkedin.com/splash?redirect_url=https%3A%2F%2Fwww.linkedin.com%2Ffavicon.ico%3Fgid%3D54384%26trk%3Dfulpro_grplogo",
-    name: "Linkedin"
+    name: "Linkedin",
+	breach: "https://thehackernews.com/2016/05/linkedin-account-hack.html",
+	breachYear: "2016"
 }, {
     domain: "https://subscribe.washingtonpost.com/loginregistration/index.html#/register/group/default?action=login&destination=https:%2F%2Fwashingtonpost.com%2Ffavicon.ico",
     redirect: "/login/?previous=/favicon.ico",
