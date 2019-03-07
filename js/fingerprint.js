@@ -22,7 +22,7 @@ $(document).ready(function() {
       connectionType: getConnectionType(),
       language: navigator.language.toUpperCase(),
       plugins: getPlugins(),
-      previousUrl: shortenUrl('https://dczysz.github.io/free/alternatives.html'),
+      previousUrl: shortenUrl(document.referrer),
       screenRes: window.innerWidth + " x " + window.innerHeight + ' x ' + screen.colorDepth + '-bit',
       screenResMax: screen.width + " x " + screen.height,
       lyingAboutRes: lyingAboutRes()? 'Yes' : '',
