@@ -22,7 +22,7 @@ $(document).ready(function() {
       connectionType: getConnectionType(),
       language: navigator.language.toUpperCase(),
       plugins: getPlugins(),
-      previousUrl: shortenUrl(document.referrer),
+      previousUrl: shortenUrl('https://dczysz.github.io/free/alternatives.html'),
       screenRes: window.innerWidth + " x " + window.innerHeight + ' x ' + screen.colorDepth + '-bit',
       screenResMax: screen.width + " x " + screen.height,
       lyingAboutRes: lyingAboutRes()? 'Yes' : '',
@@ -101,7 +101,10 @@ $(document).ready(function() {
 
   // Remove 'http[s]://' and trailing '/'
   function shortenUrl(url) {
-    return url.replace(/^https?:\/\//, '').replace(/\/$/, '');
+    let shortUrl = url.replace(/^https?:\/\//, '')
+                      .replace(/\/$/, '');
+    if (window.innerWidth < 576) shortUrl = shortUrl.replace(/\//g, '/ ');
+    return shortUrl;
   }
 
   function onOff(boolean) {
