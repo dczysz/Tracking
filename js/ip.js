@@ -17,10 +17,17 @@ $(document).ready(function() {
     if (!!ipData) {
       showSection($('#ipSection')[0]);
 
-      buildMap($('#map')[0], ipData.location);
-
       console.log('\n-- IP Address Info --');
       buildTable($('#ip')[0], ipData);
+      if ($('#ip')[0].children.length != 0) {
+        $('#ipSection .noLoad').addClass('d-none');
+        $('#ipSection .didLoad').removeClass('d-none');
+      }
+
+      buildMap($('#map')[0], ipData.location);
+
+
+
     }
   });
 });

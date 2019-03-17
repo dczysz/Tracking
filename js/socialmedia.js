@@ -3,9 +3,7 @@ var platforms = [
     {
         domain: "https://500px.com",
         redirect: "/login?r=%2Ffavicon.ico",
-        name: "500px",
-        breach: "https://thehackernews.com/2019/02/data-breach-website.html",
-		breachYear: "2018"
+        name: "500px"
     }, {
         domain: "https://www.academia.edu",
         redirect: "/login?cp=/favicon.ico&cs=www",
@@ -21,9 +19,7 @@ var platforms = [
     }, {
         domain: "https://eu.battle.net",
         redirect: "/login/de/index?ref=https://eu.battle.net/favicon.ico",
-        name: "Battle.net",
-		breach: "https://thehightechsociety.com/blizzard-battle-net-hack/",
-		breachYear: "2012"
+        name: "Battle.net"
     }, {
         domain: "https://accounts.google.com",
         redirect: "/ServiceLogin?service=blogger&hl=de&passive=1209600&continue=https://www.blogger.com/favicon.ico",
@@ -39,9 +35,7 @@ var platforms = [
     }, {
         domain: "https://www.dropbox.com",
         redirect: "/login?cont=https%3A%2F%2Fwww.dropbox.com%2Fstatic%2Fimages%2Fabout%2Fdropbox_logo_glyph_2015.svg",
-        name: "Dropbox",
-		breach: "https://thehackernews.com/2016/08/dropbox-data-breach.html",
-		breachYear: "2016"
+        name: "Dropbox"
     }, {
         domain: "https://www.expedia.de",
         redirect: "/user/login?ckoflag=0&selc=0&uurl=qscr%3Dreds%26rurl%3D%252Ffavicon.ico",
@@ -121,9 +115,7 @@ var platforms = [
     }, {
         domain: "https://www.tumblr.com",
         redirect: "/login?redirect_to=%2Ffavicon.ico",
-        name: "Tumblr",
-		breach: "https://thehackernews.com/2016/05/tumblr-data-breach.html",
-		breachYear: "2013"
+        name: "Tumblr"
     }, {
         domain:"https://www.twitch.tv",
         redirect:"/login?redirect_on_login=/favicon.ico",
@@ -131,9 +123,7 @@ var platforms = [
     }, {
         domain: "https://vk.com",
         redirect: "/login?u=2&to=ZmF2aWNvbi5pY28-",
-        name: "VK",
-		breach: "https://thehackernews.com/2016/06/vk-com-data-breach.html",
-		breachYear: "2016"
+        name: "VK"
     }, {
         domain: "https://accounts.google.com",
         redirect: "/ServiceLogin?passive=true&continue=https%3A%2F%2Fwww.youtube.com%2Ffavicon.ico&uilel=3&hl=en&service=youtube",
@@ -170,9 +160,6 @@ function loadImages() {
     img.setAttribute('onLoad', onLoadText);
     img.setAttribute('src', site.domain + site.redirect);
     img.setAttribute('height', imgSize);
-    if (site.hasOwnProperty('breach')) {
-      console.log('\n' + site.name + ' breach: ' + encodeURIComponent(site.breach));
-    }
   }
 }
 
@@ -191,17 +178,6 @@ function addCol(index, img, breach = null) {
   var title = document.createElement('p'),
       titleText = document.createTextNode(platforms[index].name);
 
-  // Add breach link to list if it exists, make link red
-  for (let i = 0; i < platforms.length; i++) {
-    let site = platforms[i];
-    if (site.hasOwnProperty('breach')) {
-      if (site.name == platforms[index].name) {
-        col.classList.add('breach');
-        addBreachLink(site.name, site.breach);
-      }
-    }
-  }
-
   title.appendChild(titleText);
   col.appendChild(title);
   $('#socialRow')[0].appendChild(col);
@@ -210,32 +186,14 @@ function addCol(index, img, breach = null) {
 
   // Hide #noSites, show breach list
   if (firstLoad) {
-    $('#noSites').addClass('d-none');
+    // $('#socialSection .noLoad').addClass('d-none');
+    // $('#socialSection .didLoad').removeClass('d-none');
 
     console.log('\n-- Social Media Sites --');
     firstLoad = false;
   }
   // Log results to console
   console.log(`Logged into ${platforms[index].domain}`);
-}
-
-// Takes strings of site name and breach info url
-// Apends li to #breachList ol with link
-function addBreachLink(site, link) {
-  var ol = $('#breachList ul')[0],
-      li = document.createElement('li'),
-      a = document.createElement('a');
-  a.innerHTML = site;
-  a.setAttribute('href', link);
-  a.setAttribute('target', '_blank');
-  a.classList.add('breach');
-  li.appendChild(a);
-  ol.appendChild(li);
-
-  // Toggle visibility if first link
-  if ($('#breachList')[0].classList.contains('d-none')) {
-    $('#breachList').removeClass('d-none');
-  }
 }
 
 // Returns bootstrap row div with 2 columns of site names

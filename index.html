@@ -23,68 +23,68 @@
       </header>
 
       <div id="loading">
-        <img src="icons/loading.gif" alt="Loading GIF">
+        <img src="icons/loading.gif">
       </div>
 
       <div id="fadeIn">
         <section id="fingerprintSection">
           <h2>Info Directly From Your Browser</h2>
-          <table id="fingerprint" class="table table-sm table-striped border"></table>
-          <p>
-            The <a href="#fingerprintID">fingerprintID</a> above is just an MD5 hash of the reliable <small>(not orientation, lastVisit, etc.)</small> values in the table above<br>
-            I then added spaces so it displays fine on small screens<br>
-            If you reload the page or come back another time using the same device and browser, it should be the same
-          </p>
-          <p>
-            If <a href="#canvas">canvas</a> is enabled above, you're also susceptible to <a href="https://browserleaks.com/canvas#how-does-it-work">
-            canvas fingerprinting</a>, which enables a site to uniquely identify your machine even without cookies enabled by
-            using your machine to render an image <small>(that doesn't even need to be shown on the page)</small>
-            and create a unique number, like the fingerprintID, from that image to save on their server to compare to next time you return
-          </p>
-          <p>
-            A simple cookie is all that's needed to remember you normally<br>
-            In the table above, the <a href="#lastVisit">lastVisit</a> date and time is read from a cookie I update with thisVisit's value each time you load the page<br>
-            It only works with cookies enabled
-          </p>
+          <div class="didLoad d-none">
+            <table id="fingerprint" class="table table-sm table-striped border"></table>
+            <p>
+              The <a href="#fingerprintID">fingerprintID</a> above is just an MD5 hash of the reliable <small>(not orientation, lastVisit, etc.)</small> values in the table above<br>
+              If you reload the page or come back another time using the same device and browser, it should be the same
+            </p>
+            <p>
+              If <a href="#canvas">canvas</a> is enabled above, you're also susceptible to <a href="https://browserleaks.com/canvas#how-does-it-work">
+              canvas fingerprinting</a>, which enables a site to uniquely identify your machine even without cookies enabled by
+              using your machine to render an image <small>(that doesn't even need to be shown on the page)</small>
+              and create a unique number, like the fingerprintID, from that image to save on their server to compare to next time you return
+            </p>
+            <p>
+              A simple cookie is all that's needed to remember you normally<br>
+              In the table above, the <a href="#lastVisit">lastVisit</a> date and time is read from a cookie I update with thisVisit's value each time you load the page<br>
+              It only works with cookies enabled
+            </p>
+          </div>
+
+          <p class="noLoad">Couldn't get browser fingerprint, that's good!</p>
         </section><!-- end fingerprintSection -->
 
         <section id="ipSection">
           <h2>IP Address Details</h2>
-          <div id="map" class="mb-4"></div>
-          <p>
-            The location isn't too precise because I'm not using the most accurate service, just the first one that worked
-            <a href="https://ipinfo.io/"><small>(ipinfo.io)</small></a><br>
-            It's one of many free services that keeps track of the location of all IP addresses
-          </p>
-          <p>A very precise location could be found if you allow geolocation <small>and if I could figure out how to do it</small></p>
-          <table id="ip" class="table table-sm table-striped border"></table>
+          <div class="didLoad d-none">
+            <div id="map" class="mb-4"></div>
+            <p>
+              The location isn't too precise because I'm not using the most accurate service, just the first one that worked
+              <a href="https://ipinfo.io/"><small>(ipinfo.io)</small></a><br>
+              It's one of many free services that keeps track of the location of all IP addresses
+            </p>
+            <p>A very precise location could be found if you allow geolocation <small>and if I could figure out how to do it</small></p>
+            <table id="ip" class="table table-sm table-striped border"></table>
+          </div>
+
+          <p class="noLoad">Couldn't get IP address, that's good!</p>
         </section><!-- end ipSection -->
 
         <section id="socialSection">
           <h2>Sites You're Logged Into</h2>
+          <div class="didLoad d-none">
+            <div id="socialRow" class="row justify-content-center"></div>
+            <p>
+              <i>Logged in</i> meaning: if you go to the site you'll already be logged in<br>
+              Click on any site and you'll see you're already logged in
+            </p>
 
-          <div id="socialRow" class="row justify-content-center"></div>
-
-          <p>
-            <i>Logged in</i> meaning: if you go to the site you'll already be logged in<br>
-            Click on any site and you'll see you're already logged in
-          </p>
-          <p id="noSites">If no sites are shown above, that's good and means your browser isn't saving cookies or is blocking the tracking attempts</p>
-
-          <div id="breachList" class="d-none">
-            <h6>You're logged into some sites that have been breached...</h6>
-            <p>Click a link below to see more information</p>
-            <ul>
-            </ul>
+            <p>
+              <a href="https://robinlinus.github.io/socialmedia-leak/">
+              How does this work?</a>
+            </p>
+            <button id="socialList" class="btn btn-sm" data-toggle="popover" data-trigger="focus" data-html="true">
+              What sites can I check?</button>
           </div>
 
-          <p>
-            <a href="https://robinlinus.github.io/socialmedia-leak/">
-            How does this work?</a>
-          </p>
-          <button id="socialList" class="btn btn-sm" data-toggle="popover" data-trigger="focus" data-html="true">
-            What sites can I check?</button>
-
+          <p id="noSites" class="noLoad">Your browser isn't saving cookies or is blocking the tracking attempts, that's good!</p>
         </section><!-- end socialSection -->
 
         <footer>
@@ -111,7 +111,7 @@
         // Popover
         // Populate popover with list of social sites getting checked
         $('#socialList')[0].setAttribute('data-content', getSocialListRow());
-        // Prevent scroll to top on click
+        // And prevent scroll to top on click
         $('[data-toggle="popover"]')
           .popover({
             placement: 'top'
@@ -137,7 +137,7 @@
 
         // Add and style links referencing table rows
         setTimeout(function() {
-          // tableLink(['lastVisit', 'canvas', 'fingerprintID']); // Fix on Chrome?
+          tableLink(['lastVisit', 'canvas', 'fingerprintID']);
         }, 500); // end timeout
 
         // After page is loaded, hide loading.gif and show page

@@ -39,6 +39,10 @@ $(document).ready(function() {
 
     console.log('\n-- Browser Fingerprint Info --');
     buildTable($('#fingerprint')[0], fingerprint);
+    if ($('#fingerprint')[0].children.length != 0) {
+      $('#fingerprintSection .noLoad').addClass('d-none');
+      $('#fingerprintSection .didLoad').removeClass('d-none');
+    }
 
     showSection($('#fingerprintSection')[0]);
   }, 250); // end timeout
@@ -57,7 +61,7 @@ $(document).ready(function() {
     }
 
     // Add spaces for mobile display
-    const NUM_SPACES = 3;
+    const NUM_SPACES = 1;
     let hash = md5Hash.end(),
         hashWithSpaces = '',
         spacesCounter = 1;
