@@ -163,7 +163,6 @@ function loadImages() {
   }
 }
 
-var firstLoad = true;
 // Adds column to row of sites logged in
 function addCol(index, img, breach = null) {
   const numColsLg = 6,
@@ -185,12 +184,11 @@ function addCol(index, img, breach = null) {
 
 
   // Hide #noSites
-  if (firstLoad) {
+  if ($('#socialRow')[0].children.length != 0) {
     $('#socialSection .noLoad').addClass('d-none');
     $('#socialSection .didLoad').removeClass('d-none');
 
     console.log('\n-- Social Media Sites --');
-    firstLoad = false;
   }
   // Log results to console
   console.log(`Logged into ${platforms[index].domain}`);
