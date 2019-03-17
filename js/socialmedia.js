@@ -184,10 +184,10 @@ function addCol(index, img, breach = null) {
 
 
 
-  // Hide #noSites, show breach list
+  // Hide #noSites
   if (firstLoad) {
-    // $('#socialSection .noLoad').addClass('d-none');
-    // $('#socialSection .didLoad').removeClass('d-none');
+    $('#socialSection .noLoad').addClass('d-none');
+    $('#socialSection .didLoad').removeClass('d-none');
 
     console.log('\n-- Social Media Sites --');
     firstLoad = false;
